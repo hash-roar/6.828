@@ -24,3 +24,4 @@ ph
 barrier
 .cache/
 .vscode/
+.clang-format
