@@ -9,7 +9,7 @@
 /*
  * the kernel's page table.
  */
-pagetable_t kernel_pagetable;
+pagetable_t kernel_pagetable; // load as pm??
 
 extern char etext[];  // kernel.ld sets this to end of kernel code.
 
