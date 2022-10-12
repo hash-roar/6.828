@@ -22,5 +22,8 @@ xv6.out*
 submissions/
 ph
 barrier
-/lab-*.json
+/lab-*L.json
 .DS_Store
+.vscode/
+build/
+.clang-format
