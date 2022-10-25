@@ -105,6 +105,12 @@ static uint64 (*syscalls[])(void) = {
     [SYS_close] sys_symlink,
 };
 
+// 根据系统调用号码完调用相应的函数
+// 系统调用参数与返回值基本都能靠几个寄存器传递
+
+// 系统调用获取参数:
+// 1. 整型数,直接由寄存器取得 2. 内存指针,通过页表取得物理地址再复制到内核缓冲区
+// 返回值: 返回的整数存在a0中
 void syscall(void) {
   int num;
   struct proc *p = myproc();

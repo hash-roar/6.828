@@ -8,6 +8,9 @@
 	# kernel.ld causes this to be aligned
         # to a page boundary.
         #
+
+        # all process and kernel share the same trampoline
+        # every process has owned trampframe
 	.section trampsec
 .globl trampoline
 trampoline:
@@ -82,6 +85,7 @@ uservec:
         # table does not specially map p->tf.
 
         # jump to usertrap(), which does not return
+        # return from userret
         jr t0
 
 .globl userret
@@ -93,6 +97,7 @@ userret:
         # a1: user page table, for satp.
 
         # switch to the user page table.
+        # in trampline here,kernel pagetable and user pagetable mapped to the same
         csrw satp, a1
         sfence.vma zero, zero
 
@@ -134,7 +139,7 @@ userret:
         ld t6, 280(a0)
 
 	# restore user a0, and save TRAPFRAME in sscratch
-        csrrw a0, sscratch, a0
+        csrrw a0, sscratch, a0  
         
         # return to user mode and user pc.
         # usertrapret() set up sstatus and sepc.
